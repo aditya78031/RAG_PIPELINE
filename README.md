@@ -1,34 +1,47 @@
-# 📚 Retrieval-Augmented Generation (RAG) Pipeline
+# Retrieval-Augmented Generation (RAG) Pipeline
 
 An end-to-end **Retrieval-Augmented Generation (RAG)** pipeline built with **LangChain**, **Sentence-Transformers**, and **ChromaDB**.  
-This project demonstrates how to ingest documents, embed them into dense vector representations, store them in a vector database, and perform semantic search to retrieve relevant information.
+**Workflow:** 1. Ingestion — Load PDF documents from a folder; 2. Chunking — Split documents into overlapping text chunks; 3. Embedding — Convert chunks into dense vector embeddings; 4. Storage — Persist embeddings in a Chroma vector store; 5. Retrieval — Perform semantic search over the vector store given a natural-language query.
+
+> An end-to-end Retrieval-Augmented Generation (RAG) pipeline built with LangChain, Sentence-Transformers, and ChromaDB.  
+> Workflow: 1. Ingestion - Load PDF documents from a folder.
 
 ---
 
-## 🚀 Workflow Overview
+## Overview
 
-1. **Ingestion**  
-   Load PDF documents from a folder into LangChain `Document` objects.
+This repository contains a production-oriented Python implementation of a RAG pipeline that demonstrates how to:
 
-2. **Chunking**  
-   Split documents into overlapping text chunks using a recursive character-based splitter.
+- Ingest documents (PDF / text) into LangChain `Document` objects.
+- Chunk long documents into overlapping segments suitable for embedding.
+- Generate dense vector embeddings using **Sentence-Transformers** and optionally **Groq** model embeddings where applicable.
+- Persist embeddings and metadata in a **ChromaDB** vector store for efficient semantic retrieval.
+- Execute semantic search and return ranked, scored document chunks with metadata.
 
-3. **Embedding**  
-   Convert text chunks into dense vector embeddings with `Sentence-Transformers`.
-
-4. **Storage**  
-   Persist embeddings in a **ChromaDB vector store** for efficient retrieval.
-
-5. **Retrieval**  
-   Perform semantic search over the vector store given a natural-language query.
+This implementation is modular and designed to be readable and recruiter-friendly, suitable for showcasing on GitHub or a resume.
 
 ---
 
-## 🛠️ Dependencies
+## Key Features
 
-Install the required packages:
+- **Modular design**: clear separation of ingestion, chunking, embedding, storage, and retrieval.
+- **Multiple embedding backends**: primary use of `sentence-transformers` (`all-MiniLM-L6-v2`) and optional integration with **Groq** model embeddings for low-latency, hardware-accelerated inference where available.
+- **Persistent vector store**: ChromaDB-backed collection for reproducible experiments and scalable retrieval.
+- **Professional structure**: imports consolidated, docstrings preserved, concise comments, and top-to-bottom runnable script.
 
-```bash
+---
+
+## Architecture Diagram
+
+```mermaid
+flowchart TD
+    A[📂 Documents (PDF / TXT)] --> B[🔹 Ingestion\nLoad into LangChain Document objects]
+    B --> C[✂️ Chunking\nSplit into overlapping text chunks]
+    C --> D[🧠 Embedding\nSentence-Transformers or Groq model]
+    D --> E[💾 Storage\nChromaDB persistent vector store]
+    E --> F[🔍 Retrieval\nSemantic search with natural-language query]
+    F --> G[📜 Results\nRanked chunks with metadata]
+
 pip install langchain langchain-core langchain-community \
     langchain-text-splitters pypdf pymupdf sentence-transformers \
     chromadb scikit-learn
